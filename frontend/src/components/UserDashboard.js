@@ -29,7 +29,7 @@ function UserDashboard() {
     }
   };
 
-  const applyFilters = () => {
+  useEffect(() => {
     let filtered = circulars;
 
     if (filters.category !== 'all') {
@@ -49,10 +49,6 @@ function UserDashboard() {
     }
 
     setFilteredCirculars(filtered);
-  };
-
-  useEffect(() => {
-    applyFilters();
   }, [filters, circulars]);
 
   const handleFilterChange = (e) => {
