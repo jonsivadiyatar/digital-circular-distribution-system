@@ -55,6 +55,7 @@ if (USE_MEMORY_DB) {
   setupInMemoryDB(app);
 }
 
+const path = require('path');
 const memoryDB = require('./inMemoryDB');
 
 app.post('/api/circulars', (req, res) => {
@@ -67,4 +68,12 @@ app.post('/api/circulars', (req, res) => {
 
   memoryDB.circulars.push(newCircular);
   res.status(201).json(newCircular);
+});
+
+// Serve frontend static files in production
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+
+// Catch-all route for React client-side routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
