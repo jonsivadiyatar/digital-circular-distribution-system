@@ -18,9 +18,11 @@ function UserDashboard() {
     fetchCirculars();
   }, []);
 
+  // Fetch all circulars (including drafts, archived, published)
   const fetchCirculars = async () => {
     try {
-      const response = await axios.get('/api/circulars?status=published');
+      // Fetch all circulars, no status filter
+      const response = await axios.get('/api/circulars?status=all');
       setCirculars(response.data);
     } catch (error) {
       console.error('Error fetching circulars:', error);
@@ -171,15 +173,15 @@ function UserDashboard() {
                       <div className="card-badges">
                         <span className={`badge ${circular.category}`}>{circular.category}</span>
                         <span className={`badge priority-${circular.priority}`}>{circular.priority}</span>
+                        {/* Show status badge */}
+                        <span className={`badge status-${circular.status?.toLowerCase()}`}>{circular.status?.toUpperCase()}</span>
                       </div>
                     </div>
-                    
                     <h3>{circular.title}</h3>
                     <p className="card-description">{circular.description}</p>
-                    
                     <div className="card-footer">
                       <span className="card-date">
-                        📅 {new Date(circular.publishedDate).toLocaleDateString()}
+                        📅 {circular.publishedDate ? new Date(circular.publishedDate).toLocaleDateString() : 'N/A'}
                       </span>
                       <span className="card-views">👁️ {circular.views}</span>
                     </div>

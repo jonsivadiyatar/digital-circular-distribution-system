@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
       }
 
       const newUser = {
-        _id: String(memoryDB.getUserIdCounter()),
+        _id: String(memoryDB.getNextUserId()),
         username,
         email,
         password,
