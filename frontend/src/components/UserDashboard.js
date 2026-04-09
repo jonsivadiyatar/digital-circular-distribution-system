@@ -29,29 +29,29 @@ function UserDashboard() {
     }
   };
 
-  const applyFilters = () => {
-    let filtered = circulars;
-
-    if (filters.category !== 'all') {
-      filtered = filtered.filter(c => c.category === filters.category);
-    }
-
-    if (filters.priority !== 'all') {
-      filtered = filtered.filter(c => c.priority === filters.priority);
-    }
-
-    if (filters.search) {
-      const search = filters.search.toLowerCase();
-      filtered = filtered.filter(c =>
-        c.title.toLowerCase().includes(search) ||
-        c.description.toLowerCase().includes(search)
-      );
-    }
-
-    setFilteredCirculars(filtered);
-  };
-
   useEffect(() => {
+    const applyFilters = () => {
+      let filtered = circulars;
+
+      if (filters.category !== 'all') {
+        filtered = filtered.filter(c => c.category === filters.category);
+      }
+
+      if (filters.priority !== 'all') {
+        filtered = filtered.filter(c => c.priority === filters.priority);
+      }
+
+      if (filters.search) {
+        const search = filters.search.toLowerCase();
+        filtered = filtered.filter(c =>
+          c.title.toLowerCase().includes(search) ||
+          c.description.toLowerCase().includes(search)
+        );
+      }
+
+      setFilteredCirculars(filtered);
+    };
+
     applyFilters();
   }, [filters, circulars]);
 
